@@ -18,7 +18,6 @@ END;
 INSERT INTO compradores (nombre,primer_apellido,email)
 VALUES('Dejah','Thoris','dejah');
 
-
 INSERT INTO compradores (nombre,primer_apellido,email)
 VALUES('Dejah','Thoris','dejah@correo.com');
 
