@@ -112,3 +112,20 @@ PRAGMA foreign_keys = ON;
 .print "13. Mostrar el dia que más se ha comprado"
 .read compras/consulta13.sql
 .print "\n"
+
+
+.print "14. Modificar mediante sql la estructura de la tabla **productos** e insertar el campo existencias de tipo entero y con un valor default de 100."
+.read triggers/trigger00.sql
+.print "\n"
+
+.print "15. Crear un trigger que después de insertar un producto en detalle_ventas, dejando precio_unitario y total_x_producto con un valor de 0, actualice el precio_unitario del producto insertado trayendolo directmente de la tabla productos.\n"
+.read triggers/trigger01.sql
+.print "\n"
+
+.print "16. Crear un trigger que después de insertar un producto en detalle_ventas, actualice las existencias de productos\n"
+.read triggers/trigger02.sql
+.print "\n"
+
+.print "17. Crear un trigger que después de insertar un producto en detalle_ventas, dejando precio_unitario y total_x_producto con un valor de 0, actualice el total_x_producto, con la operación precio_unitario * cantidad_producto.\n"
+.read triggers/trigger03.sql
+.print "\n"

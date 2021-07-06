@@ -200,3 +200,97 @@ fecha       total_compra
 ----------  ------------
 2020/02/02  6000.0    
 ```
+
+## Triggers
+
+15. **Consulta 14:** Modificar mediante sql la estructura de la tabla **productos** e insertar el campo existencias de tipo entero y con un valor default de 100.
+
+```
+id_producto  producto       precio_unitario
+-----------  -------------  ---------------
+1            Lápiz acme 2H  5.0
+2            Libreta scrib  20.0
+id_producto  producto       precio_unitario  existencias
+-----------  -------------  ---------------  -----------
+1            Lápiz acme 2H  5.0              100
+2            Libreta scrib  20.0             100
+```
+
+16. **Consulta 15:** Crear un trigger que después de insertar un producto en detalle_ventas, dejando preci_unitario y total_x_producto con un valor de 0, actualice el precio_unitario del producto insertado trayendolo directmente de la tabla productos.
+
+Ejemplo consulta SQL:
+```
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,2,0,0);
+```
+
+Resultado de la consulta:
+```
+id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
+----------------  ----------  -----------  -----------------  ---------------  ----------------
+1                 1           1            2                  5.0              10.0
+2                 1           2            10                 20.0             200.0
+3                 2           2            1                  20.0             20.0
+4                 3           1            10                 5.0              50.0
+5                 3           2            10                 20.0             200.0
+6                 1           1            2                  5.0              0.0
+```
+
+17. **Consulta 16** Crear un trigger que después de insertar un producto en detalle_ventas, actualice las existencias de productos:
+
+Existencias de productos:
+```
+id_producto  producto       precio_unitario  existencias
+-----------  -------------  ---------------  -----------
+1            Lápiz acme 2H  5.0              100
+2            Libreta scrib  20.0             100
+```
+
+Nuevo detalle_venta
+```
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,2,0,0);
+```
+
+Existencias actualizadas
+```
+id_producto  producto       precio_unitario  existencias
+-----------  -------------  ---------------  -----------
+1            Lápiz acme 2H  5.0              98
+2            Libreta scrib  20.0             100
+```
+
+17. **Consulta 16** Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
+
+Detalle ventas antes del TRIGGER
+```
+id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
+----------------  ----------  -----------  -----------------  ---------------  ----------------
+1                 1           1            2                  5.0              10.0
+2                 1           2            10                 20.0             200.0
+3                 2           2            1                  20.0             20.0
+4                 3           1            10                 5.0              50.0
+5                 3           2            10                 20.0             200.0
+6                 1           1            2                  5.0              0.0
+7                 1           1            2                  5.0              0.0
+```
+
+Insertar nuevo detalle_ventas
+```
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,10,0,0);
+```
+Tabla detalle_ventas actualizada con el trigger.
+```
+id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
+----------------  ----------  -----------  -----------------  ---------------  ----------------
+1                 1           1            2                  5.0              10.0
+2                 1           2            10                 20.0             200.0
+3                 2           2            1                  20.0             20.0
+4                 3           1            10                 5.0              50.0
+5                 3           2            10                 20.0             200.0
+6                 1           1            2                  5.0              10.0
+7                 1           1            2                  5.0              10.0
+8                 1           1            10                 5.0              50.0
+```
+
