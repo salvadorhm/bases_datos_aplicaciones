@@ -6,6 +6,8 @@ BEGIN
     where id_producto = new.id_producto;
 END;
 
+SELECT * FROM detalle_ventas;
+
 INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
 VALUES (1,1,2,0,0);
 

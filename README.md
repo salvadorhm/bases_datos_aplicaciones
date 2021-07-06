@@ -205,11 +205,15 @@ fecha       total_compra
 
 15. **Consulta 14:** Modificar mediante sql la estructura de la tabla **productos** e insertar el campo existencias de tipo entero y con un valor default de 100.
 
+Tabla productos antes de modificar su estructura
 ```
 id_producto  producto       precio_unitario
 -----------  -------------  ---------------
 1            Lápiz acme 2H  5.0
 2            Libreta scrib  20.0
+```
+Tabla productos después de insertar existencias
+```
 id_producto  producto       precio_unitario  existencias
 -----------  -------------  ---------------  -----------
 1            Lápiz acme 2H  5.0              100
@@ -260,7 +264,7 @@ id_producto  producto       precio_unitario  existencias
 2            Libreta scrib  20.0             100
 ```
 
-17. **Consulta 16** Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
+18. **Consulta 17** Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
 
 Detalle ventas antes del TRIGGER
 ```

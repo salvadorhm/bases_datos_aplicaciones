@@ -1,3 +1,7 @@
+.headers on
+.mode column
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE compradores (
     id integer PRIMARY KEY,
     nombre text NOT NULL,

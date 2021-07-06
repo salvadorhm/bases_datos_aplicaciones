@@ -1,3 +1,7 @@
+.headers on
+.mode column
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE productos (
     id_producto integer PRIMARY KEY,
     nombre text NOT NULL,

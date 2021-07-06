@@ -1,3 +1,7 @@
+.headers on
+.mode column
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE detalle_ventas(
     id_detalle_venta integer PRIMARY KEY AUTOINCREMENT,
     id_venta integer,
