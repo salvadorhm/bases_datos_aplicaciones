@@ -429,3 +429,90 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 ## ---------------------------------------------------------------
 ## Transactions
 ## ---------------------------------------------------------------
+
+
+### COMMIT
+
+```
+CREATE TABLE clientes (
+    id_cliente integer PRIMARY KEY AUTOINCREMENT,
+    nombre varchar(50),
+    email varchar(50)
+);
+
+INSERT INTO clientes(nombre,email)
+VALUES
+('Dejah','dejah@email.com'),
+('Jonh','jonh@email.com');
+
+```
+
+### **SELECT * FROM clientes;**
+
+```
+1|Dejah|dejah@email.com
+2|Jonh|jonh@email.com
+```
+
+### Transaction COMMIT
+
+```
+BEGIN TRANSACTION;
+
+INSERT INTO clientes(nombre,email)
+VALUES
+('Jane','jane@email.com');
+
+COMMIT;
+```
+
+### **SELECT * FROM clientes;**
+
+```
+1|Dejah|dejah@email.com
+2|Jonh|jonh@email.com
+3|Jane|jane@email.com
+```
+
+#### Nota: COMMIT aplica la transaccion
+
+### ROLLBACK
+
+```
+CREATE TABLE clientes (
+    id_cliente integer PRIMARY KEY AUTOINCREMENT,
+    nombre varchar(50),
+    email varchar(50)
+);
+
+INSERT INTO clientes(nombre,email)
+VALUES
+('Dejah','dejah@email.com'),
+('Jonh','jonh@email.com');
+```
+
+### **SELECT * FROM clientes;**
+
+```
+1|Dejah|dejah@email.com
+2|Jonh|jonh@email.com
+```
+### Transaction ROLLBACK
+```
+BEGIN TRANSACTION;
+
+INSERT INTO clientes(nombre,email)
+VALUES
+('Jane','jonh@email.com');
+
+ROLLBACK;
+```
+
+#### **SELECT * FROM clientes;**
+
+```
+1|Dejah|dejah@email.com
+2|Jonh|jonh@email.com
+```
+
+#### Nota: ROLLBACK anula la transacion
