@@ -9,7 +9,7 @@
 ### Clientes: 
 
 
-```
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -23,7 +23,7 @@ VALUES
 ```
 
 ### **SELECT * FROM clientes;**
-```
+```sql
 id_cliente  nombre      email          
 ----------  ----------  ---------------
 1           Dejah       dejah@email.com
@@ -33,7 +33,7 @@ id_cliente  nombre      email
 
 ### Productos: 
 
-```
+```sql
 CREATE TABLE productos(
     id_producto integer PRIMARY KEY AUTOINCREMENT,
     producto varchar(50),
@@ -56,7 +56,7 @@ id_producto  producto    precio_unitario
 
 ### Ventas
 
-```
+```sql
 CREATE TABLE ventas(
     id_venta integer PRIMARY KEY AUTOINCREMENT,
     fecha date,
@@ -81,7 +81,7 @@ id_venta    fecha       id_cliente
 
 ### Detalle ventas
 
-```
+```sql
 CREATE TABLE detalle_ventas(
     id_detalle_venta integer PRIMARY KEY AUTOINCREMENT,
     id_venta integer REFERENCES ventas(id_venta),
@@ -113,7 +113,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 ```
 
 ### Proveedores
-```
+```sql
 CREATE TABLE proveedores (
     id_proveedor integer PRIMARY KEY AUTOINCREMENT,
     proveedor varchar(50),
@@ -138,7 +138,7 @@ id_proveedor  proveedor   nombre_contacto  email_contacto
 
 ### Compras
 
-```
+```sql
 CREATE TABLE compras(
     id_compra integer PRIMARY KEY AUTOINCREMENT,
     fecha date,
@@ -164,7 +164,7 @@ id_compra   fecha       id_proveedor
 
 ### Detalle de Compras
 
-```
+```sql
 CREATE TABLE detalle_compras(
     id_detalle_compra integer PRIMARY KEY AUTOINCREMENT,
     id_compra integer REFERENCES compras(id_compra),
@@ -433,7 +433,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 
 ### COMMIT
 
-```
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -456,7 +456,7 @@ VALUES
 
 ### Transaction COMMIT
 
-```
+```sql
 BEGIN TRANSACTION;
 
 INSERT INTO clientes(nombre,email)
@@ -478,7 +478,7 @@ COMMIT;
 
 ### ROLLBACK
 
-```
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -498,7 +498,7 @@ VALUES
 2|Jonh|jonh@email.com
 ```
 ### Transaction ROLLBACK
-```
+```sql
 BEGIN TRANSACTION;
 
 INSERT INTO clientes(nombre,email)
