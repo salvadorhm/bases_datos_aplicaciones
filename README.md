@@ -516,3 +516,65 @@ ROLLBACK;
 ```
 
 #### Nota: ROLLBACK anula la transacion
+
+## **PERMISSIONS**
+
+```sql
+create database demo_users;
+
+use demo_users;
+
+
+create table clientes(
+id int primary key auto_increment,
+name varchar(50) not null
+);
+
+insert into clientes(name) 
+values
+('Jane'),
+('John');
+
+select * from clientes;
+```
+
+## Crear usuario
+```sql
+CREATE USER 'invitado'@'localhost' IDENTIFIED BY '123456';
+```
+
+## Asignar permisos
+```
+GRANT ALL PRIVILEGES ON demo_users.* TO 'administrador'@'localhost';
+```
+
+## Aplicar cambios
+```sql
+FLUSH PRIVILEGES;
+```
+
+## Tipos de permisos
+
+* **ALL** PRIVILEGES- asigna todos los permisos
+* **CREATE** Permite crear nuevas bases o tablas.
+* **DROP** Permite eliminar bases o tablas.
+* **DELETE** Permite borrar bases o tablas.
+* **INSERT** Permite insertar nuevos registros en las tablas.
+* **SELECT** Permite seleccionar registros de las tablas.
+* **UPDATE** Permite actualizar datos de los registros de las tablas.
+* **GRANT OPTION** Permite dar o quitar permisos a los usuarios.
+
+## Quitar permisos
+```sql
+REVOKE Select ON demo_users.* TO 'invitado'@'localhost';
+```
+
+## Mostrar lista de permisos
+```
+SHOW GRANTS FOR 'invitado'@'localhost';
+```
+
+## Eliminar usuario
+```
+DROP USER 'invitado'@'localhost';
+```
