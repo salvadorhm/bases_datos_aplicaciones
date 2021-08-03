@@ -200,8 +200,22 @@ id_detalle_compra  id_compra   id_producto  cantidad_producto  precio_unitario  
 ## ---------------------------------------------------------------
 
 
-1. **Consulta 1:** Mostrar id_cliente, nombre, email, fecha, id_venta, id_producto, producto, cantidad_producto,precio_unitario,total_producto para cada detalle_venta
+## **Consulta 1:** 
+
+Mostrar id_cliente, nombre, email, fecha, id_venta, id_producto, producto, cantidad_producto,precio_unitario,total_producto para cada detalle_venta
+
+### Script SQL
+```sql
+select clientes.id_cliente, clientes.nombre, clientes.email, ventas.fecha, ventas.id_venta, productos.id_producto, productos.producto,detalle_ventas.id_detalle_venta, detalle_ventas.cantidad_producto,detalle_ventas.precio_unitario,detalle_ventas.total_x_producto 
+
+from clientes,ventas,detalle_ventas, productos
+
+WHERE clientes.id_cliente = ventas.id_cliente AND
+ventas.id_venta = detalle_ventas.id_venta AND
+detalle_ventas.id_producto = productos.id_producto;
 ```
+ ### Resultado
+```sql
 id_cliente  nombre      email            fecha       id_detalle_venta  id_venta    id_producto  producto    cantidad_producto  precio_unitario  total_x_producto
 ----------  ----------  ---------------  ----------  ----------------  ----------  -----------  ----------  -----------------  ---------------  ----------------
 1           Dejah       dejah@email.com  2020/01/01  1                 1           1            Lápiz       2                  5.0              10.0            
