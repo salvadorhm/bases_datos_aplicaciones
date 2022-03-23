@@ -1,10 +1,23 @@
-# Consultas SQL - SQLite3
+# Caso práctico de "Base de datos para aplicaciones" con SQLite3
 
-## Repositorio Bases de datos para aplicaciones: practicas con SQL
+## Planteamiento del caso de estudio
 
-## ---------------------------------------------------------------
-## Tablas
-## ---------------------------------------------------------------
+* Una papelería desea llevar el control de las ventas de sus productos, por lo que desea crear una base de datos para almacenar los datos de las ventas, las compras, los clientes, los productos y los proveedores.
+
+* La base de datos debe tener las siguientes tablas: clietes, productos, proveedores, ventas, compras, detalle_ventas, detalle_compras.
+
+* La base de datos debe tener realaciones entre las tablas: ventas y detalle_ventas, compras y detalle_compras, clientes y ventas, proveedores y compras, productos y detalle_compras.
+
+* La empresa desea procesar los datos almacenados para obener información de:
+
+    * total de venta por cada venta.
+
+
+---
+## **Creación de Tablas**
+---
+
+## **TABLA CLIENTES**
 
 ### Creación de la tabla **Clientes**
 
@@ -14,20 +27,24 @@ CREATE TABLE clientes (
     nombre varchar(50),
     email varchar(50)
 );
+```
 
+### Insertar datos en la tabla **Clientes**
+
+```sql
 INSERT INTO clientes(nombre,email)
 VALUES
 ('Dejah','dejah@email.com'),
 ('Jonh','jonh@email.com');
 ```
 
-### Consulta
+### Consultar datos de la tabla **Clientes**
 
 ```sql
 SELECT * FROM clientes;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```sql
 id_cliente  nombre      email          
@@ -36,6 +53,8 @@ id_cliente  nombre      email
 2           Jonh        jonh@email.com 
 
 ```
+---
+## **TABLA PRODUCTOS**
 
 ### Creación de la tabla **Productos**
 
@@ -45,20 +64,24 @@ CREATE TABLE productos(
     producto varchar(50),
     precio_unitario float
 );
+```
 
+### Insertar datos en la tabla **Productos**
+
+```sql
 INSERT INTO productos(producto,precio_unitario)
 VALUES
 ('Lápiz',5),
 ('Libreta',20);
 ```
 
-### Consulta
+### Consulta de datos de la tabla **Productos**
 
 ```sql
 SELECT * FROM productos;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```
 id_producto  producto    precio_unitario
@@ -66,6 +89,8 @@ id_producto  producto    precio_unitario
 1            Lápiz       5.0            
 2            Libreta     20.0 
 ```
+---
+## **TABLA VENTAS**
 
 ### Creación de la tabla **Ventas**
 
@@ -75,7 +100,11 @@ CREATE TABLE ventas(
     fecha date,
     id_cliente integer REFERENCES clientes(id_cliente)
 );
+```
 
+### Insertar datos en la tabla **Ventas**
+
+```sql
 INSERT INTO ventas(fecha,id_cliente)
 VALUES
 ('2020/01/01',1),
@@ -83,13 +112,13 @@ VALUES
 ('2020/01/03',2);
 ```
 
-### Consulta
+### Consulta de datos de la tabla **Ventas**
 
 ```sql
 SELECT * FROM ventas;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```
 id_venta    fecha       id_cliente
@@ -98,6 +127,8 @@ id_venta    fecha       id_cliente
 2           2020/01/02  1         
 3           2020/01/03  2    
 ```
+---
+## **TABLA DETALLES_VENTAS**
 
 ### Creación de la tabla **"Detalle ventas"**
 
@@ -110,8 +141,11 @@ CREATE TABLE detalle_ventas(
     precio_unitario float,
     total_x_producto float
 );
+```
 
+### Insertar datos en la tabla **"Detalle ventas"**
 
+```sql
 INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
 VALUES
 (1,1,2,5,10),
@@ -120,13 +154,13 @@ VALUES
 (3,1,10,5,50),
 (3,2,10,20,200);
 ```
-### Consulta
+### Consulta de datos de la tabla **"Detalle ventas"**
 
 ```sql
 SELECT * FROM detalle_ventas;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```
 id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
@@ -138,7 +172,11 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 5                 3           2            10                 20.0             200.0  
 ```
 
+---
+## **TABLA  PROVEEDORES**
+
 ### Creación de la tabla **Proveedores**
+
 ```sql
 CREATE TABLE proveedores (
     id_proveedor integer PRIMARY KEY AUTOINCREMENT,
@@ -146,20 +184,24 @@ CREATE TABLE proveedores (
     nombre_contacto varchar(100),
     email_contacto varchar(50)
 );
+```
 
+### Insertar datos en la tabla **Proveedores**
+
+```sql
 INSERT INTO proveedores(proveedor,nombre_contacto,email_contacto)
 VALUES
 ('ACME','Bruce Wayne','bruce@acme.com'),
 ('Cloud9','Diana Prince','diana@cloud9.com');
 ```
 
-### Consulta
+### Consulta de datos de la tabla **Proveedores**
 
 ```sql
 SELECT * FROM proveedores;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```
 id_proveedor  proveedor   nombre_contacto  email_contacto
@@ -167,6 +209,9 @@ id_proveedor  proveedor   nombre_contacto  email_contacto
 1             ACME        Bruce Wayne      bruce@acme.com
 2             Cloud9      Diana Prince     diana@scribe.c
 ```
+
+---
+### **TABLA COMPRAS**
 
 ### Creación de la tabla **Compras**
 
@@ -176,7 +221,11 @@ CREATE TABLE compras(
     fecha date,
     id_proveedor integer REFERENCES proveedores(id_proveedor)
 );
+```
 
+### Insertar datos en la tabla **Compras**
+
+```sql
 INSERT INTO compras(fecha,id_proveedor)
 VALUES
 ('2020/01/01',1),
@@ -184,13 +233,13 @@ VALUES
 ('2020/03/03',2);
 ```
 
-### Consulta
+### Consulta de datos de la tabla **Compras**
 
 ```sql
 SELECT * FROM compras;
 ```
 
-### Resultado
+### Resultado de la consulta
 
 ```
 id_compra   fecha       id_proveedor
@@ -199,6 +248,9 @@ id_compra   fecha       id_proveedor
 2           2020/02/02  2           
 3           2020/03/03  2 
 ```
+
+---
+## **TABLA DETALLES_COMPRAS**
 
 ### Creación de la tabla **Detalle de Compras**
 
@@ -211,8 +263,11 @@ CREATE TABLE detalle_compras(
     precio_unitario float,
     total_x_producto float
 );
+```
 
+### Insertar datos en la tabla **Detalle de Compras**
 
+```sql
 INSERT INTO detalle_compras(id_compra,id_producto,cantidad_producto,precio_unitario,total_x_producto)
 VALUES
 (1,1,100,5,500),
@@ -222,13 +277,13 @@ VALUES
 (3,1,300,5,600);
 ```
 
-### Consulta
+### Consulta de datos de la tabla **Detalle de Compras**
 
 ```sql
 SELECT * FROM detalle_compras;
 ```
 
-### Resultado
+### Resultado de la consulta
 ```
 id_detalle_compra  id_compra   id_producto  cantidad_producto  precio_unitario  total_x_producto
 -----------------  ----------  -----------  -----------------  ---------------  ----------------
@@ -239,9 +294,9 @@ id_detalle_compra  id_compra   id_producto  cantidad_producto  precio_unitario  
 5                  3           1            300                5.0              600.0     
 ```
 
-## ---------------------------------------------------------------
+---
 ## 1. Consultas Ventas
-## ---------------------------------------------------------------
+---
 
 
 ## **Consulta 1:** 
