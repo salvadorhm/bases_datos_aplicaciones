@@ -6,8 +6,7 @@
 ## Tablas
 ## ---------------------------------------------------------------
 
-### Clientes: 
-
+### Creación de la tabla **Clientes**
 
 ```sql
 CREATE TABLE clientes (
@@ -22,7 +21,14 @@ VALUES
 ('Jonh','jonh@email.com');
 ```
 
-### **SELECT * FROM clientes;**
+### Consulta
+
+```sql
+SELECT * FROM clientes;
+```
+
+### Resultado
+
 ```sql
 id_cliente  nombre      email          
 ----------  ----------  ---------------
@@ -31,7 +37,7 @@ id_cliente  nombre      email
 
 ```
 
-### Productos: 
+### Creación de la tabla **Productos**
 
 ```sql
 CREATE TABLE productos(
@@ -46,7 +52,14 @@ VALUES
 ('Libreta',20);
 ```
 
-### **SELECT * FROM productos;**
+### Consulta
+
+```sql
+SELECT * FROM productos;
+```
+
+### Resultado
+
 ```
 id_producto  producto    precio_unitario
 -----------  ----------  ---------------
@@ -54,7 +67,7 @@ id_producto  producto    precio_unitario
 2            Libreta     20.0 
 ```
 
-### Ventas
+### Creación de la tabla **Ventas**
 
 ```sql
 CREATE TABLE ventas(
@@ -70,7 +83,14 @@ VALUES
 ('2020/01/03',2);
 ```
 
-### **SELECT * FROM ventas;**
+### Consulta
+
+```sql
+SELECT * FROM ventas;
+```
+
+### Resultado
+
 ```
 id_venta    fecha       id_cliente
 ----------  ----------  ----------
@@ -79,7 +99,7 @@ id_venta    fecha       id_cliente
 3           2020/01/03  2    
 ```
 
-### Detalle ventas
+### Creación de la tabla **"Detalle ventas"**
 
 ```sql
 CREATE TABLE detalle_ventas(
@@ -100,8 +120,14 @@ VALUES
 (3,1,10,5,50),
 (3,2,10,20,200);
 ```
+### Consulta
 
-### **SELECT * FROM detalle_ventas;**
+```sql
+SELECT * FROM detalle_ventas;
+```
+
+### Resultado
+
 ```
 id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
 ----------------  ----------  -----------  -----------------  ---------------  ----------------
@@ -112,7 +138,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 5                 3           2            10                 20.0             200.0  
 ```
 
-### Proveedores
+### Creación de la tabla **Proveedores**
 ```sql
 CREATE TABLE proveedores (
     id_proveedor integer PRIMARY KEY AUTOINCREMENT,
@@ -127,7 +153,13 @@ VALUES
 ('Cloud9','Diana Prince','diana@cloud9.com');
 ```
 
-### **SELECT * FROM proveedores;**
+### Consulta
+
+```sql
+SELECT * FROM proveedores;
+```
+
+### Resultado
 
 ```
 id_proveedor  proveedor   nombre_contacto  email_contacto
@@ -136,7 +168,7 @@ id_proveedor  proveedor   nombre_contacto  email_contacto
 2             Cloud9      Diana Prince     diana@scribe.c
 ```
 
-### Compras
+### Creación de la tabla **Compras**
 
 ```sql
 CREATE TABLE compras(
@@ -152,9 +184,15 @@ VALUES
 ('2020/03/03',2);
 ```
 
-### **SELECT * FROM compras;**
+### Consulta
 
-``` 
+```sql
+SELECT * FROM compras;
+```
+
+### Resultado
+
+```
 id_compra   fecha       id_proveedor
 ----------  ----------  ------------
 1           2020/01/01  1           
@@ -162,7 +200,7 @@ id_compra   fecha       id_proveedor
 3           2020/03/03  2 
 ```
 
-### Detalle de Compras
+### Creación de la tabla **Detalle de Compras**
 
 ```sql
 CREATE TABLE detalle_compras(
@@ -184,8 +222,14 @@ VALUES
 (3,1,300,5,600);
 ```
 
-### **SELECT * FROM detalle_compras;**
-``` 
+### Consulta
+
+```sql
+SELECT * FROM detalle_compras;
+```
+
+### Resultado
+```
 id_detalle_compra  id_compra   id_producto  cantidad_producto  precio_unitario  total_x_producto
 -----------------  ----------  -----------  -----------------  ---------------  ----------------
 1                  1           1            100                5.0              500.0           
@@ -214,7 +258,9 @@ WHERE clientes.id_cliente = ventas.id_cliente AND
 ventas.id_venta = detalle_ventas.id_venta AND
 detalle_ventas.id_producto = productos.id_producto;
 ```
- ### Resultado
+
+### Resultado
+
 ```sql
 id_cliente  nombre      email            fecha       id_detalle_venta  id_venta    id_producto  producto    cantidad_producto  precio_unitario  total_x_producto
 ----------  ----------  ---------------  ----------  ----------------  ----------  -----------  ----------  -----------------  ---------------  ----------------
@@ -226,6 +272,7 @@ id_cliente  nombre      email            fecha       id_detalle_venta  id_venta 
 ```
 
 2. **Consulta 2:** Mostrar el total_venta por cada venta
+
 ```
 id_venta    total_venta
 ----------  -----------
