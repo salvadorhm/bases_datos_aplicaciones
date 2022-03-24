@@ -1,4 +1,4 @@
-SELECT compras.fecha, sum(detalle_compras.total_x_producto) as total_compra
-FROM compras, detalle_compras
-WHERE compras.id_compra = detalle_compras.id_compra
-GROUP BY compras.id_compra;
+SELECT productos.producto, sum(detalle_compras.cantidad_producto) as cantidad_producto
+FROM productos,detalle_compras
+WHERE detalle_compras.id_producto= productos.id_producto
+GROUP BY productos.producto;

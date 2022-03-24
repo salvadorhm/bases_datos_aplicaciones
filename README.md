@@ -377,6 +377,10 @@ Mostrar el nombre del cliente y el total que pagado
 
 ### Script SQL
 ```sql
+SELECT clientes.nombre, sum(detalle_ventas.total_x_producto) as total_venta
+FROM clientes,ventas, detalle_ventas
+WHERE clientes.id_cliente = ventas.id_cliente AND ventas.id_venta = detalle_ventas.id_venta
+GROUP BY  clientes.nombre;
 ```
 
 ### Resultado del script
@@ -394,6 +398,10 @@ Mostrar la cantidad total de productos vendida por cada producto
 
 ### Script SQL
 ```sql
+SELECT productos.producto, sum(detalle_ventas.cantidad_producto) as cantidad_producto
+FROM productos,detalle_ventas
+WHERE detalle_ventas.id_producto= productos.id_producto
+GROUP BY productos.producto;
 ```
 
 ### Resultado del script
@@ -411,6 +419,10 @@ Mostrar el total vendido por dia
 
 ### Script SQL
 ```sql
+SELECT ventas.fecha, sum(detalle_ventas.total_x_producto) as total_venta
+FROM ventas, detalle_ventas
+WHERE ventas.id_venta = detalle_ventas.id_venta
+GROUP BY ventas.id_venta;
 ```
 
 ### Resultado del script
@@ -429,6 +441,10 @@ Mostrar el dia que menos se ha vendido
 
 ### Script SQL
 ```sql
+SELECT ventas.fecha, sum(detalle_ventas.total_x_producto) as total_venta
+FROM ventas, detalle_ventas
+WHERE ventas.id_venta = detalle_ventas.id_venta
+GROUP BY ventas.id_venta ORDER BY total_venta LIMIT 1;
 ```
 
 ### Resultado del script
@@ -438,17 +454,22 @@ fecha       total_venta
 ----------  -----------
 2020/01/02  20.0  
 ```
-## ---------------------------------------------------------------
+
+---
 ## Consultas Compras
-## ---------------------------------------------------------------
 
-
-## **Consulta 08:** 
+## **Consulta 08:**
 
 Mostrar id_proveedor, proveedor, nombre_contacto, email_contacto, fecha, id_compra, id_producto, producto, cantidad_producto,precio_unitario,total_producto para cada **detalle_compra**
 
 ### Script SQL
 ```sql
+SELECT proveedores.id_proveedor, proveedores.proveedor, proveedores.nombre_contacto, proveedores.email_contacto, compras.fecha, compras.id_compra, detalle_compras.id_producto, productos.producto, detalle_compras.cantidad_producto,detalle_compras.precio_unitario,detalle_compras.total_x_producto
+FROM proveedores, compras, productos, detalle_compras
+WHERE
+proveedores.id_proveedor = compras.id_proveedor AND
+compras.id_compra = detalle_compras.id_compra AND
+detalle_compras.id_producto = productos.id_producto;
 ```
 
 ### Resultado del script
@@ -469,6 +490,9 @@ Mostrar el total_compra por cada **compra**
 
 ### Script SQL
 ```sql
+select detalle_compras.id_compra, sum(total_x_producto) as total_compra
+FROM detalle_compras
+GROUP BY id_compra;
 ```
 
 ### Resultado del script
@@ -487,6 +511,10 @@ Mostrar el proveedor, nombre_contacto, email_contacto y total_compra por cada co
 
 ### Script SQL
 ```sql
+SELECT proveedores.proveedor, proveedores.nombre_contacto, proveedores.email_contacto ,compras.id_compra, sum(detalle_compras.total_x_producto) as total_compra
+FROM proveedores,compras, detalle_compras
+WHERE proveedores.id_proveedor= compras.id_proveedor AND compras.id_compra = detalle_compras.id_compra
+GROUP BY compras.id_compra;
 ```
 
 ### Resultado del script
@@ -505,6 +533,10 @@ Mostrar el proveedor  y el total que se le ha comprado
 
 ### Script SQL
 ```sql
+SELECT proveedores.proveedor, sum(detalle_compras.total_x_producto) as total_compra
+FROM proveedores,compras, detalle_compras
+WHERE proveedores.id_proveedor= compras.id_proveedor AND compras.id_compra = detalle_compras.id_compra
+GROUP BY  proveedores.proveedor;
 ```
 
 ### Resultado del script
@@ -522,6 +554,10 @@ Mostrar la cantidad total de productos comprados por cada producto
 
 ### Script SQL
 ```sql
+SELECT productos.producto, sum(detalle_compras.cantidad_producto) as cantidad_producto
+FROM productos,detalle_compras
+WHERE detalle_compras.id_producto= productos.id_producto
+GROUP BY productos.producto;
 ```
 
 ### Resultado del script
@@ -539,6 +575,10 @@ Mostrar el total comprado por día
 
 ### Script SQL
 ```sql
+SELECT compras.fecha, sum(detalle_compras.total_x_producto) as total_compra
+FROM compras, detalle_compras
+WHERE compras.id_compra = detalle_compras.id_compra
+GROUP BY compras.id_compra;
 ```
 
 ### Resultado del script
@@ -556,7 +596,12 @@ fecha       total_compra
 Mostrar el dia que más se ha comprado
 
 ### Script SQL
+
 ```sql
+SELECT compras.fecha, sum(detalle_compras.total_x_producto) as total_compra
+FROM compras, detalle_compras
+WHERE compras.id_compra = detalle_compras.id_compra
+GROUP BY compras.id_compra ORDER BY total_compra DESC LIMIT 1;
 ```
 
 ### Resultado del script
@@ -571,11 +616,19 @@ fecha       total_compra
 ## Consultas Triggers
 ## ---------------------------------------------------------------
 
-## **Consulta 15:** 
+## **Consulta 15:**
 
 Modificar mediante sql la estructura de la tabla **productos** e insertar el campo existencias de tipo entero y con un valor default de 100.
 
 Tabla productos antes de modificar su estructura
+
+### Script SQL
+
+```sql
+SELECT * from productos;
+```
+
+### Resultado del script
 ```sql
 id_producto  producto       precio_unitario
 -----------  -------------  ---------------
@@ -583,7 +636,10 @@ id_producto  producto       precio_unitario
 2            Libreta scrib  20.0
 ```
 ### Script SQL
+
 ```sql
+ALTER TABLE productos
+ADD existencias integer default 100;
 ```
 
 ### Resultado del script

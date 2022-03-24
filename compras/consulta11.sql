@@ -1,4 +1,4 @@
-SELECT productos.producto, sum(detalle_compras.cantidad_producto) as cantidad_producto
-FROM productos,detalle_compras
-WHERE detalle_compras.id_producto= productos.id_producto
-GROUP BY productos.producto;
+SELECT proveedores.proveedor, sum(detalle_compras.total_x_producto) as total_compra
+FROM proveedores,compras, detalle_compras
+WHERE proveedores.id_proveedor= compras.id_proveedor AND compras.id_compra = detalle_compras.id_compra
+GROUP BY  proveedores.proveedor;
