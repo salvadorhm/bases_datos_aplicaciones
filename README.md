@@ -663,6 +663,20 @@ VALUES (1,1,2,0,0);
 ```
 ### Script SQL
 ```sql
+CREATE TRIGGER actualizar_precio_unitario
+   AFTER INSERT ON detalle_ventas
+BEGIN
+    UPDATE detalle_ventas
+    SET precio_unitario = (SELECT precio_unitario FROM productos where detalle_ventas.id_producto = productos.id_producto)
+    where id_producto = new.id_producto;
+END;
+
+SELECT * FROM detalle_ventas;
+
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,2,0,0);
+
+SELECT * FROM detalle_ventas;
 ```
 
 ### Resultado del script
@@ -678,9 +692,30 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 6                 1           1            2                  5.0              0.0
 ```
 
-17. **Consulta 17** Crear un trigger que después de insertar un producto en detalle_ventas, actualice las existencias de productos:
+## **Consulta 17**
 
-Existencias de productos:
+Crear un trigger que después de insertar un producto en detalle_ventas, actualice las existencias de productos:
+
+### Script SQL
+
+```sql
+CREATE TRIGGER actualizar_inventario
+   AFTER INSERT ON detalle_ventas
+BEGIN
+    UPDATE productos
+    SET existencias = existencias - new.cantidad_producto
+    where id_producto = new.id_producto;
+END;
+
+SELECT * FROM productos;
+
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,2,0,0);
+
+SELECT * FROM productos;
+```
+
+### Existencias de productos:
 ```
 id_producto  producto       precio_unitario  existencias
 -----------  -------------  ---------------  -----------
@@ -688,7 +723,7 @@ id_producto  producto       precio_unitario  existencias
 2            Libreta scrib  20.0             100
 ```
 
-Nuevo detalle_venta
+### Nuevo detalle_venta
 ```
 INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
 VALUES (1,1,2,0,0);
@@ -702,9 +737,29 @@ id_producto  producto       precio_unitario  existencias
 2            Libreta scrib  20.0             100
 ```
 
-18. **Consulta 18** Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
+## **Consulta 18**
+
+Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
+
+```sql
+CREATE TRIGGER actualizar_total_producto
+   AFTER update ON detalle_ventas
+BEGIN
+    UPDATE detalle_ventas
+    SET total_x_producto = cantidad_producto * precio_unitario
+    WHERE id_detalle_venta = new.id_detalle_venta;
+END;
+
+SELECT * FROM detalle_ventas;
+
+INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
+VALUES (1,1,10,0,0);
+
+SELECT * FROM detalle_ventas;
+```
 
 Detalle ventas antes del TRIGGER
+
 ```
 id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
 ----------------  ----------  -----------  -----------------  ---------------  ----------------
@@ -718,12 +773,15 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 ```
 
 Insertar nuevo detalle_ventas
-```
+
+```sql
 INSERT INTO detalle_ventas(id_venta,id_producto,cantidad_producto,precio_unitario,total_x_producto)
 VALUES (1,1,10,0,0);
 ```
+
 Tabla detalle_ventas actualizada con el trigger.
-```
+
+```sql
 id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  total_x_producto
 ----------------  ----------  -----------  -----------------  ---------------  ----------------
 1                 1           1            2                  5.0              10.0
@@ -736,10 +794,8 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 8                 1           1            10                 5.0              50.0
 ```
 
-## ---------------------------------------------------------------
+---
 ## Transactions
-## ---------------------------------------------------------------
-
 
 ### COMMIT
 
@@ -758,7 +814,7 @@ VALUES
 
 ### **SELECT * FROM clientes;**
 
-```sl
+```sql
 1|Dejah|dejah@email.com
 2|Jonh|jonh@email.com
 ```
@@ -807,6 +863,7 @@ VALUES
 2|Jonh|jonh@email.com
 ```
 ### Transaction ROLLBACK
+
 ```sql
 BEGIN TRANSACTION;
 
@@ -874,17 +931,19 @@ FLUSH PRIVILEGES;
 * **GRANT OPTION** Permite dar o quitar permisos a los usuarios.
 
 ## Quitar permisos
+
 ```sql
 REVOKE Select ON demo_users.* TO 'invitado'@'localhost';
 ```
 
 ## Mostrar lista de permisos
+
 ```sql
 SHOW GRANTS FOR 'invitado'@'localhost';
 ```
 
 ## Eliminar usuario
+
 ```sql
 DROP USER 'invitado'@'localhost';
 ```
-
