@@ -53,8 +53,10 @@ id_cliente  nombre      email
 2           Jonh        jonh@email.com 
 
 ```
+
 ---
 ## **TABLA PRODUCTOS**
+---
 
 ### Creación de la tabla **Productos**
 
@@ -91,6 +93,7 @@ id_producto  producto    precio_unitario
 ```
 ---
 ## **TABLA VENTAS**
+---
 
 ### Creación de la tabla **Ventas**
 
@@ -127,8 +130,10 @@ id_venta    fecha       id_cliente
 2           2020/01/02  1         
 3           2020/01/03  2    
 ```
+
 ---
 ## **TABLA DETALLES_VENTAS**
+---
 
 ### Creación de la tabla **"Detalle ventas"**
 
@@ -174,6 +179,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 
 ---
 ## **TABLA  PROVEEDORES**
+---
 
 ### Creación de la tabla **Proveedores**
 
@@ -212,6 +218,7 @@ id_proveedor  proveedor   nombre_contacto  email_contacto
 
 ---
 ### **TABLA COMPRAS**
+---
 
 ### Creación de la tabla **Compras**
 
@@ -251,6 +258,7 @@ id_compra   fecha       id_proveedor
 
 ---
 ## **TABLA DETALLES_COMPRAS**
+---
 
 ### Creación de la tabla **Detalle de Compras**
 
@@ -295,7 +303,7 @@ id_detalle_compra  id_compra   id_producto  cantidad_producto  precio_unitario  
 ```
 
 ---
-## 1. Consultas Ventas
+## Consultas Ventas
 ---
 
 
@@ -326,6 +334,7 @@ id_cliente  nombre      email            fecha       id_detalle_venta  id_venta 
 2           Jonh        jonh@email.com   2020/01/03  5                 3           2            Libreta     10                 20.0             200.0    
 ```
 
+---
 ## **Consulta 02:**
 
 Mostrar el total_venta por cada venta
@@ -347,6 +356,7 @@ id_venta    total_venta
 3           250.0  
 ```
 
+---
 ## **Consulta 03:**
 
 Mostrar el nombre del cliente y total_venta por cada venta
@@ -371,7 +381,8 @@ Dejah       2           20.0
 Jonh        3           250.0   
 ```
 
-## **Consulta 04:** 
+---
+## **Consulta 04:**
 
 Mostrar el nombre del cliente y el total que pagado
 
@@ -392,6 +403,7 @@ Dejah       230.0
 Jonh        250.0  
 ```
 
+---
 ## **Consulta 05:**
 
 Mostrar la cantidad total de productos vendida por cada producto
@@ -413,6 +425,7 @@ Libreta     21
 Lápiz       12   
 ```
 
+---
 ## **Consulta 06:**
 
 Mostrar el total vendido por dia
@@ -435,7 +448,8 @@ fecha       total_venta
 2020/01/03  250.0  
 ```
 
-## **Consulta 7:**
+---
+## **Consulta 07:**
 
 Mostrar el dia que menos se ha vendido
 
@@ -457,6 +471,7 @@ fecha       total_venta
 
 ---
 ## Consultas Compras
+---
 
 ## **Consulta 08:**
 
@@ -484,6 +499,7 @@ id_proveedor  proveedor   nombre_contacto  email_contacto  fecha       id_compra
 2             Cloud9      Diana Prince     diana@scribe.c  2020/03/03  3           1            Lápiz acme 2H  300                5.0              600.0   
 ```
 
+---
 ## **Consulta 09:**
 
 Mostrar el total_compra por cada **compra**
@@ -505,6 +521,7 @@ id_compra   total_compra
 3           600.0  
 ```
 
+---
 ## **Consulta 10:**
 
 Mostrar el proveedor, nombre_contacto, email_contacto y total_compra por cada compra
@@ -527,6 +544,7 @@ Cloud9      Diana Prince     diana@scribe.c  2           6000.0
 Cloud9      Diana Prince     diana@scribe.c  3           600.0  
 ```
 
+---
 ## **Consulta 11:**
 
 Mostrar el proveedor  y el total que se le ha comprado
@@ -548,6 +566,7 @@ ACME        3500.0
 Cloud9      6600.0  
 ```
 
+---
 ## **Consulta 12:**
 
 Mostrar la cantidad total de productos comprados por cada producto
@@ -569,6 +588,7 @@ Libreta scribe profesional  400
 Lápiz acme 2H               600   
 ```
 
+---
 ## **Consulta 13:**
 
 Mostrar el total comprado por día
@@ -591,6 +611,7 @@ fecha       total_compra
 2020/03/03  600.0 
 ```
 
+---
 ## **Consulta 14:**
 
 Mostrar el dia que más se ha comprado
@@ -612,9 +633,9 @@ fecha       total_compra
 2020/02/02  6000.0    
 ```
 
-## ---------------------------------------------------------------
+---
 ## Consultas Triggers
-## ---------------------------------------------------------------
+---
 
 ## **Consulta 15:**
 
@@ -652,6 +673,7 @@ id_producto  producto       precio_unitario  existencias
 2            Libreta scrib  20.0             100
 ```
 
+---
 ## **Consulta 16:**
 
 Crear un trigger que después de insertar un producto en detalle_ventas, dejando preci_unitario y total_x_producto con un valor de 0, actualice el precio_unitario del producto insertado trayendolo directmente de la tabla productos.
@@ -692,6 +714,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 6                 1           1            2                  5.0              0.0
 ```
 
+---
 ## **Consulta 17**
 
 Crear un trigger que después de insertar un producto en detalle_ventas, actualice las existencias de productos:
@@ -737,6 +760,7 @@ id_producto  producto       precio_unitario  existencias
 2            Libreta scrib  20.0             100
 ```
 
+---
 ## **Consulta 18**
 
 Crear un trigger que después de actualizar el detalle_ventas, actualice las total_x_prodcutos con la operación total_x_producto = cantidad_producto * precio_unitario:
@@ -796,6 +820,7 @@ id_detalle_venta  id_venta    id_producto  cantidad_producto  precio_unitario  t
 
 ---
 ## Transactions
+---
 
 ### COMMIT
 
@@ -841,6 +866,7 @@ COMMIT;
 
 #### Nota: COMMIT aplica la transaccion
 
+---
 ### ROLLBACK
 
 ```sql
@@ -883,6 +909,7 @@ ROLLBACK;
 
 #### Nota: ROLLBACK anula la transacion
 
+---
 ## **PERMISSIONS**
 
 ```sql
