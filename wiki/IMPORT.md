@@ -14,7 +14,7 @@ Se tiene una tabla existente sin registros, estos se van a agregar a partir de l
 
 ### 1.1 Tabla original
 
-```bash
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -24,7 +24,7 @@ CREATE TABLE clientes (
 
 ### 1.2 Nuevos datos **clientes.csv**
 
-```bash
+```sql
 1,Cliente 1,cliente1@email.com
 2,Cliente 2,cliente2@email.com
 3,Cliente 3,cliente3@email.com
@@ -32,32 +32,32 @@ CREATE TABLE clientes (
 
 ### 1.3 Cambiar **.mode** a csv para importar el archivo CSV
 
-```bash
+```sql
 .mode csv
 ```
 
 ### 1.4 Importar en la tabla **clientes**
 
-```bash
+```sql
 .import clientes.csv clientes
 ```
 
 ### 1.5 Cambiar el **.mode** a column y activar los **.headers** para facilitar la visualización de los datos
 
-```bash
+```sql
 .headers on
 .mode column
 ```
 
 ### 1.6 Verificar los datos insertados
 
-```bash
+```sql
 SELECT * FROM clientes;
 ```
 
 ### 1.7 Resultado esperado
 
-```bash
+```sql
 id_cliente  nombre      email
 ----------  ----------  ------------------
 1           Cliente 1   cliente1@email.com
@@ -74,7 +74,7 @@ Se tiene una tabla existente que ya contiene registros, los cuales se desean con
 
 ### 2.1 Tabla original
 
-```bash
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -89,13 +89,13 @@ INSERT INTO clientes(nombre,email) VALUES('Carthoris','carthoris@email.com');
 
 #### 2.2 Consultar los datos de la tabla **clientes**
 
-```bash
+```sql
 SELECT * FROM clientes;
 ```
 
 ### 2.3 Resultado esperado
 
-```bash
+```sql
 1|Dejah|otro@email.com
 2|Jhon|jhon@email.com
 3|Carthoris|carthoris@email.com
@@ -103,7 +103,7 @@ SELECT * FROM clientes;
 
 ### 2.4 Nuevos datos **clientes.csv**
 
-```bash
+```sql
 1,Cliente 1,cliente1@email.com
 2,Cliente 2,cliente2@email.com
 3,Cliente 3,cliente3@email.com
@@ -113,7 +113,7 @@ SELECT * FROM clientes;
 
 **Nota:** En esta tabla temporal solo se crean los campos que contiene el archivo CSV, pero no se define una **clave primaria**.
 
-```bash
+```sql
 CREATE TABLE temporal (
     id_cliente integer ,
     nombre varchar(50),
@@ -123,7 +123,7 @@ CREATE TABLE temporal (
 
 ### 2.6 Cambiar **.mode** a csv para importar el archivo CSV
 
-```bash
+```sql
 .mode csv
 ```
 
@@ -135,20 +135,20 @@ CREATE TABLE temporal (
 
 ### 2.8 Cambiar el **.mode** a column y activar los **.headers** para facilitar la visualización de los datos
 
-```bash
+```sql
 .headers on
 .mode column
 ```
 
 ### 2.9 Consultar la tabla **temporal**
 
-```bash
+```sql
 SELECT * FROM temporal;
 ```
 
 ### 2.10 Resultado esperado
 
-```bash
+```sql
 id_cliente  nombre      email
 ----------  ----------  ------------------
 1           Cliente 1   cliente1@email.com
@@ -163,7 +163,7 @@ id_cliente  nombre      email
 **Nota:** Es posible seleccionar que columna o columnas se quieren importar.
 
 
-```bash
+```sql
 INSERT INTO clientes(nombre, email)
 SELECT nombre, email
 FROM temporal;
@@ -171,7 +171,7 @@ FROM temporal;
 
 ### 2.12 Verificar los datos insertados en **clientes**
 
-```bash
+```sql
 SELECT * FROM clientes;
 ```
 
@@ -179,7 +179,7 @@ SELECT * FROM clientes;
 
 **Nota:** los datos de la tabla temporal se insertan en la tabla clientes, y se genera un nuevo id_cliente para cada registro.
 
-```bash
+```sql
 id_cliente  nombre      email
 ----------  ----------  --------------
 1           Dejah       otro@email.com
@@ -194,7 +194,7 @@ id_cliente  nombre      email
 
 **Nota:** Se elimina la tabla **temporal** para que no ocupe espacio en la base de datos.
 
-```bash
+```sql
 DROP table temporal;
 ```
 
@@ -208,7 +208,7 @@ Se tiene una tabla existente que ya contiene registros, los cuales se desean con
 
 ### 3.1 Tabla original
 
-```bash
+```sql
 CREATE TABLE clientes (
     id_cliente integer PRIMARY KEY AUTOINCREMENT,
     nombre varchar(50),
@@ -223,13 +223,13 @@ INSERT INTO clientes(nombre,email) VALUES('Carthoris','carthoris@email.com');
 
 ### 3.2 Consultar los datos de la tabla **clientes**
 
-```bash
+```sql
 SELECT * FROM clientes;
 ```
 
 ### 3.3 Resultado esperado
 
-```bash
+```sql
 1|Dejah|otro@email.com
 2|Jhon|jhon@email.com
 3|Carthoris|carthoris@email.com
@@ -239,7 +239,7 @@ SELECT * FROM clientes;
 
 **Nota:** En este caso el archivo **CSV** contiene cabecera.
 
-```bash
+```sql
 id_cliente,nombre,email
 1,Cliente 1,cliente1@email.com
 2,Cliente 2,cliente2@email.com
@@ -248,13 +248,13 @@ id_cliente,nombre,email
 
 ### 3.5 Cambiar **.mode** a csv para importar el archivo CSV
 
-```bash
+```sql
 .mode csv
 ```
 
 ### 3.6 Importar **clientes.csv** sin haber creado una tabla temporal previamente
 
-```bash
+```sql
 .import clientes.csv temporal
 ```
 
@@ -262,7 +262,7 @@ id_cliente,nombre,email
 
 **Nota:** El primer registro del archivo CSV es la cabecera.
 
-```bash
+```sql
 CREATE TABLE temporal(
   "id_ciente" TEXT,
   "nombre" TEXT,
@@ -272,20 +272,20 @@ CREATE TABLE temporal(
 
 ### 3.7 Cambiar el **.mode** a column y activar los **.headers** para facilitar la visualización de los datos
 
-```bash
+```sql
 .headers on
 .mode column
 ```
 
 ### 3.8 Consultar la tabla **temporal**
 
-```bash
+```sql
 SELECT * FROM temporal;
 ```
 
 ### 3.9 Resultado esperado
 
-```bash
+```sql
 id_cliente  nombre      email
 ----------  ----------  ------------------
 1           Cliente 1   cliente1@email.com
@@ -299,7 +299,7 @@ id_cliente  nombre      email
 
 **Nota:** Es posible seleccionar que columna o columnas se quieren importar.
 
-```bash
+```sql
 INSERT INTO clientes(nombre, email)
 SELECT nombre, email
 FROM temporal;
@@ -307,7 +307,7 @@ FROM temporal;
 
 ### 3.11 Verificar los datos insertados en **clientes**
 
-```bash
+```sql
 SELECT * from clientes;
 ```
 
@@ -315,7 +315,7 @@ SELECT * from clientes;
 
 **Nota:** los datos de la tabla temporal se insertan en la tabla clientes, y se genera un nuevo id_cliente para cada registro.
 
-```bash
+```sql
 id_cliente  nombre      email
 ----------  ----------  --------------
 1           Dejah       otro@email.com
@@ -330,7 +330,7 @@ id_cliente  nombre      email
 
 **Nota:** Se elimina la tabla **temporal** para que no ocupe espacio en la base de datos.
 
-```bash
+```sql
 DROP table temporal;
 ```
 
